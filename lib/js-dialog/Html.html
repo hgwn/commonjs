@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <title>帝隆P2P-网贷行业的领导者</title>
+		 <style type="text/css">
+        *{ margin: 0; padding: 0;}
+    #main { height: 500px;}
+        .switch { width: 80px; height: 50px; text-align: center; line-height: 50px; background: #6AB5FF; position: fixed; bottom: 5px; right: 5px; float: right;}
+        .dialog { width: 200px; height: 100px; border: 10px solid #cccccc; background: white; }
+        .dialog p { padding: 10px; }
+    </style>
+    </head>
+    <body>
+       <div id="main">
+    <div class="switch"><a id="show" style="display: block; cursor: hand;">显示</a></div>
+    <div id="dialog" class="dialog" style="display: none;">
+        <div style=" width: 100%; height: 20px; line-height: 20px; text-align: right;">
+            <a id="hide" style="cursor: hand; font: bold 14px Arial; color: #aaa;">Close</a>
+        </div>
+        <p>这是一个层窗口示例程序. </p>
+    </div>
+	
+	
+</div>
+
+<button type="button" id="ddd">按钮</button>
+<div id="dialog2" class="dialog" style="display: none;">
+        <div style=" width: 100%; height: 20px; line-height: 20px; text-align: right;">
+            <a id="hide2" style="cursor: hand; font: bold 14px Arial; color: #aaa;">关闭</a>
+        </div>
+        <p>这是一个层窗口示例程序. </p>
+    </div>
+        <script type="text/javascript" src="jquery-1.7.2.js"></script>
+       
+        <script type="text/javascript" src="js.js"></script>
+
+        <script>
+
+            $(function() {
+               $("#show").click(function() {
+					//参数(层id, {遮罩颜色,显示延时,透明度}, 回调函数)
+					showDialog("#dialog", { "bgcolor": "black", "delay": 200 }, function() {
+						alert("Dialog was shaw!");
+					});
+				});
+				$("#ddd").click(function() {
+					//参数(层id, {遮罩颜色,显示延时,透明度}, 回调函数)
+					showDialog("#dialog2");
+				});
+				$("#hide2").click(function() {
+					//参数(层id, 回调函数)
+					hideDialog("#dialog2");
+				})
+				
+				$("#hide").click(function() {
+					//参数(层id, 回调函数)
+					hideDialog("#dialog", function() {
+						alert("Dialog was hided!");
+					});
+				})
+            });
+        </script>
+    </body>
+</html>
