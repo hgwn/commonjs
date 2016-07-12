@@ -1,0 +1,111 @@
+
+#popup_overlay{background:#000!important; opacity:0.3!important;}
+#popup_container {
+	font-family: Arial, sans-serif;
+	font-size: 12px;
+	min-width: 450px; /* Dialog will be no smaller than this */
+	max-width: 600px; /* Dialog will wrap after this width */
+    min-height: 290px;
+	background: #FFF;
+	border: solid 4px #8c8c8c;
+	color: #000;
+}
+
+#popup_title {
+	font-size: 14px;
+	color: #666;
+	cursor: default;
+	padding: 0;
+	margin: 0;
+	height: 38px;
+    line-height: 38px;
+    background: #eee;
+    border-bottom: 1px solid #ddd;
+    text-indent: 10px;
+}
+
+/*#popup_content {
+	background: 16px 16px no-repeat url(images/icon-warn.png);
+	padding: 1em 1.75em;
+	margin: 0em;
+	min-height: 60px;
+	position: relative;
+	height: auto;
+}
+
+
+#popup_content.alert {
+	background-image: url(images/icon-warn.png);
+}
+
+#popup_content.confirm {
+	background-image: url(images/icon-help.png);
+}
+
+#popup_content.prompt {
+	background-image: url(images/icon-help.png);
+}*/
+
+#popup_container .h-dialog_bg{ height: 60px; background:  url(images/icon-warn.png) no-repeat; width: 60px; margin: 20px auto;}
+#popup_container div.confirm  .h-dialog_bg{ background:  url(images/icon-help.png) no-repeat;}
+
+#popup_container div.info  .h-dialog_bg{ background:  url(images/icon-warn.png) no-repeat;}
+#popup_container div.warn  .h-dialog_bg{ background:  url(images/icon-warn.png) no-repeat;}
+#popup_container div.success  .h-dialog_bg{ background:  url(images/icon-success.png) no-repeat;}
+#popup_container div.error  .h-dialog_bg{ background:  url(images/icon-error.png) no-repeat;}
+#popup_message {
+    text-align: center;
+    font-size: 14px;
+    color: #555;
+    line-height: 25px;
+}
+
+#popup_panel {
+	text-align: center;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    margin-left: -35px;
+
+}
+
+#popup_prompt {
+	margin: .5em 0em;
+}
+
+
+#popup_panel input[type="button"]{
+	background: #ff5e53;
+    border: 1px solid #ff5e53;
+    border-radius: 2px;
+    width: 75px;
+    height: 35px;
+    text-align: center;
+    color: #fff;
+    outline: none;
+    cursor: pointer;
+    font-size: 14px;
+    margin-right: 15px;
+    letter-spacing: 5px;
+}
+
+#popup_panel input[type="button"]:hover{
+	background: #f36157; border: 1px solid #f36157;
+}
+
+#popup_container a.h-dialog_close {
+    cursor: pointer;
+    font: bold 14px Arial;
+    color: #aaa;
+    text-indent: -20000em;
+    display: block;
+    position: absolute;
+    height: 30px;
+    width: 30px;
+    background: url("images/icon-close.png") 0 4px no-repeat;
+    top: 7px;
+    right: 2px;
+}
+#popup_container a.h-dialog_close:hover{
+	background-position: 0 -40px;
+}
