@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<table class="table2" id="validgroup">
+<tr>
+<td class="inp-label tr">验证码</td>
+<td class="inp-content tl">
+<div class="input-group">
+<input onblur="blurCode()" onfocus="focusCode()" type="text" value="" class="valid input-text " placeholder="验证码" id="txtValidCode" tip="请输入验证码5位" pattern="/^\w{5,5}$/" patternsuc="" patternerror="验证码为5位字符"><img src="" class="code" id="imgCode" style="height:40px; vertical-align: middle;">
+</div>
+<div id="errCode" style="display:none;">
+<span class="error-span" id="spanCode">验证码无效！</span>
+</div>
+</td>
+</tr>
+<tr>
+<td class="inp-label tr">手机号码
+</td>
+<td class="inp-content tl">
+<div class="input-group"><input type="text" value="" class="valid input-text wd250 " id="txtMobile" placeholder="手机号码" tip="请输入11位手机号码" pattern="/^(0|86|17951)?(13[0-9]|15[0-9]|17[0-9]|18[0-9]|14[0-9])[0-9]{8}$/" patternsuc="" patternerror="手机号格式验证错误"><input type="button" class="input-text sendcode" value="获取验证码" onclick="sendCode(this)"></div>
+<div id="errPhone" style="display:none;">
+<span class="error-span" id="spanPhone">手机号码无效！</span>
+</div>
+</td>
+</tr>
+<tr>
+<td class="inp-label tr">手机验证码</td>
+<td class="inp-content tl">
+<input type="text" value="" class="valid input-text " placeholder="手机验证码" id="txtCode" tip="请输入手机验证码" pattern="/^\d{6}$/" patternsuc="" patternerror="手机验证码为6位数字">
+<div id="errCode" style="display:none;">
+<span class="error-span" id="spanCode">手机验证码无效！</span>
+</div>
+</td>
+</tr>
+<tr>
+<td class="inp-label tr"></td>
+<td class="inp-content tl">
+<p class="agreement"><label><input id="cbxAgree" type="checkbox" onclick="agreeChecked()" checked="checked"/><span>我已阅读并同意《<a href="../web/agreement.html" target="_blank">金财税服务条款</a>》</span></label></p>
+</td>
+</tr>
+<tr>
+<td class="inp-label tr"></td>
+<td class="inp-content tl">
+<button type="button" id="btnNext" class="button" onclick="onNext1()"><span><span>下一步</span></span></button>
+</td>
+</tr>
+</table>
+<script>
+	function agreeChecked()
+{var checked=$("#cbxAgree").attr("checked");if(checked==undefined)
+{$("#btnNext").attr("disabled",true);}
+else
+{$("#btnNext").attr("disabled",false);}}
+function sendCode(obj)
+{if(!checkInputItem($('#txtValidCode'))){return;}
+if(!checkInputItem($('#txtMobile'))){return;}
+var validCode=$("#txtValidCode").val();var mobile=$("#txtMobile").val();if(mobile.length==0||mobile==""||mobile.length!=11)
+{showError($('#txtMobile'),'请输入11位手机号码');return;}
+if(!(/^(0|86|17951)?(13[0-9]|15[0-9]|17[0-9]|18[0-9]|14[0-9])[0-9]{8}$/.test(mobile))){showError($('#txtMobile'),'手机号格式验证错误');return;}
+$("#errPhone").attr('style','display:none;');$.postJSON(dataSourceApi+"users/sendCode",{"isReg":1,'targetDest':mobile,'targetType':'S',validCode:validCode},function(response){var json=response;if(json.Code=="200"){$(obj).attr('disabled',true);var count=60
+var i=setInterval(function(){$(obj).val(count+'秒后重发');if(count<=0){$(obj).attr('disabled',false);$(obj).val('获取验证码');window.clearInterval(i);}
+count--;},1000);if(json.Content!=null)
+{}}else if(json.Code==400){$error(json.Message);}});}
+function onNext1()
+{var mobile=$("#txtMobile").val();var code=$("#txtCode").val();if(!checkInput($('#validgroup'))){return;}
+$.postJSON(dataSourceApi+"users/checkMobile",{'mobile':mobile,'code':code},function(response){var json=response;if(json.Code=="200"){if(json.Content!=null)
+{var tokencode=json.Content;window.location.href="registeruserinfo.html?tokencode="+tokencode;}}
+else
+{$error(json.Message);}});}
+function initMobile()
+{var tokencode=GetQueryString("tokencode");if(!tokencode){return;}
+$.postJSON(dataSourceApi+"users/getMobileByToken",{'tokencode':tokencode},function(response){var json=response;if(json.Code=="200"){$("#spanMobile").html(json.Content);}
+else
+{window.location.href='registerphone.html';return;}});}
+function onNext2()
+{var tokencode=GetQueryString("tokencode");var userName=$("#txtUserName11").val();var password=$("#txtPassword11").val();var password1=$("#txtPassword111").val();if(!checkInput($('#validgroup'))){return;}
+$.postJSON(dataSourceApi+"users/userReg",{'userName':userName,'password':password,'tokencode':tokencode},function(response){var json=response;if(json.Code=="200"){var token=json.Message;var _u=json.Content;_u.token=token;var path='/';$.cookie('user',JSON.stringify(_u),{path:path,domain:cookieDomain});window.location.href="registersucc.html";}
+else
+{$error(json.Message);}});}
+</script>
+</body>
+</html>
